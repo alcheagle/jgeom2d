@@ -14,12 +14,10 @@ hs_err_pid*
 
 
 ### NetBeans ###
-nbbuild.xml
-nbproject/
 nbproject/private/
 build/
 nbbuild/
-#dist/
+dist/
 nbdist/
 nbactions.xml
 .nb-gradle/
