@@ -44,9 +44,9 @@ public class CircleBoundary implements Boundary {
 
 	@Override
 	public boolean isInside(Vector2D point) {
-		Vector2D deltapos = center.sub(point);
-
-		return deltapos.magnitude() < radius;
+		Vector2D deltapos = point.sub(center);
+		
+		return deltapos.magnitude() <= radius;
 	}
 
 	@Override

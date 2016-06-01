@@ -117,7 +117,7 @@ public class Vector2D implements Cloneable {
 	}
 
 	private double calculate_magnitude() {
-		return x * x + y * y;
+		return Math.sqrt(x * x + y * y);
 	}
 
 	public double magnitude() {
