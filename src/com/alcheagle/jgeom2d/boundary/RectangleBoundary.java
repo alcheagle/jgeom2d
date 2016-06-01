@@ -50,8 +50,4 @@ public class RectangleBoundary extends PolygonBoundary {
 
 		return triangulation;
 	}
-
-	public static void main(String[] args) {
-		RectangleBoundary r = new RectangleBoundary(new Vector2D(0, 0), new Vector2D(3, 5));
-	}
 }
