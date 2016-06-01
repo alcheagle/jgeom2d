@@ -1,12 +1,5 @@
 language: java
 
-install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y junit
-
-script:
-  - locate junit.jar
-
 jdk:
   - oraclejdk8
   - oraclejdk7
