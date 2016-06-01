@@ -33,10 +33,8 @@ import static org.junit.Assert.*;
  */
 public class CircleBoundaryTest {
 
-	private CircleBoundary sample;
-	private List<Pair<Vector2D,Boolean>> samples;
-
 	public static class Pair<X, Y> {
+
 		public final X x;
 		public final Y y;
 
@@ -45,47 +43,19 @@ public class CircleBoundaryTest {
 			this.y = y;
 		}
 	}
-	
+
+	public static class Triplet<X, Y, Z> extends Pair<X, Y> {
+
+		public final Z z;
+
+		public Triplet(X x, Y y, Z z) {
+			super(x, y);
+			this.z = z;
+		}
+	}
+
 	public CircleBoundaryTest() {
-		//creating CircleBoundary sample
-		Vector2D center = new Vector2D(10, 10);
-		sample = new CircleBoundary(center, 10);
 
-		//creating Vector samples
-		samples = new ArrayList<>();
-
-		samples.add(new Pair<>(
-				center,
-				true
-		));
-		samples.add(new Pair<>(
-				new Vector2D(20, 20),
-				false
-		));
-		samples.add(new Pair<>(
-				new Vector2D(),
-				false
-		));
-		samples.add(new Pair<>(
-				new Vector2D(0, 20),
-				false
-		));
-		samples.add(new Pair<>(
-				new Vector2D(20, 0),
-				false
-		));
-		samples.add(new Pair<>(
-				new Vector2D(200, 20),
-				false
-		));
-		samples.add(new Pair<>(
-				new Vector2D(20, 100),
-				false
-		));
-		samples.add(new Pair<>(
-				new Vector2D(10, 20),
-				true
-		));
 	}
 
 	@BeforeClass
@@ -109,10 +79,117 @@ public class CircleBoundaryTest {
 	 */
 	@Test
 	public void testIsInside() {
-		System.out.println("isInside Testing");
+		CircleBoundary sample;
+		List<Pair<Vector2D, Boolean>> samples;
+
+		//creating CircleBoundary sample
+		Vector2D center = new Vector2D(10, 10);
+		sample = new CircleBoundary(center, 10);
+
+		//creating Vector samples
+		samples = new ArrayList<>();
+
+		samples.add(
+				new Pair<>(
+						center,
+						true
+				));
+		samples.add(
+				new Pair<>(
+						new Vector2D(20, 20),
+						false
+				));
+		samples.add(
+				new Pair<>(
+						new Vector2D(),
+						false
+				));
+		samples.add(
+				new Pair<>(
+						new Vector2D(0, 20),
+						false
+				));
+		samples.add(
+				new Pair<>(
+						new Vector2D(20, 0),
+						false
+				));
+		samples.add(
+				new Pair<>(
+						new Vector2D(200, 20),
+						false
+				));
+		samples.add(
+				new Pair<>(
+						new Vector2D(20, 100),
+						false
+				));
+		samples.add(
+				new Pair<>(
+						new Vector2D(10, 20),
+						true
+				));
+
+		System.out.println(
+				"isInside Testing");
 		//testing
 		for (Pair<Vector2D, Boolean> s : samples) {
 			assertEquals("failing with: " + s.x, sample.isInside(s.x), s.y);
+		}
+	}
+
+	/**
+	 * tests the collisions method
+	 */
+	@Test
+	public void testCollisions() {
+		List<Triplet<Boundary, Boundary, Boolean>> samples;
+		samples = new ArrayList<>();
+
+		samples.add(new Triplet<Boundary, Boundary, Boolean>(
+				new CircleBoundary(new Vector2D(10, 10), 10), //this method will be called on the second arg
+				new CircleBoundary(new Vector2D(10, 10), 10),
+				true
+		));
+		
+		samples.add(new Triplet<Boundary, Boundary, Boolean>(
+				new CircleBoundary(new Vector2D(), 100), //this method will be called on the second arg
+				new CircleBoundary(new Vector2D(20, 20), 10),
+				true
+		));
+
+		samples.add(new Triplet<Boundary, Boundary, Boolean>(
+				new CircleBoundary(new Vector2D(), 100), //this method will be called on the second arg
+				new CircleBoundary(new Vector2D(), 10),
+				true
+		));
+		
+		samples.add(new Triplet<Boundary, Boundary, Boolean>(
+				new CircleBoundary(new Vector2D(), 0), //this method will be called on the second arg
+				new CircleBoundary(new Vector2D(), 0),
+				true
+		));
+		
+		samples.add(new Triplet<Boundary, Boundary, Boolean>(
+				new CircleBoundary(new Vector2D(100, 100), 10), //this method will be called on the second arg
+				new CircleBoundary(new Vector2D(), 100),
+				true
+		));
+		
+		samples.add(new Triplet<Boundary, Boundary, Boolean>(
+				new CircleBoundary(new Vector2D(10, 10), 10), //this method will be called on the second arg
+				new CircleBoundary(new Vector2D(22, 22), 10),
+				false
+		));
+		
+		samples.add(new Triplet<Boundary, Boundary, Boolean>(
+				new CircleBoundary(new Vector2D(), 10), //this method will be called on the second arg
+				new CircleBoundary(new Vector2D(100, 100), 10),
+				false
+		));
+		
+		for (CircleBoundaryTest.Triplet<Boundary, Boundary, Boolean> sample : samples) {
+			assertEquals(sample.x.isColliding(sample.y), sample.z);
 		}
 	}
 }
