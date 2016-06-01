@@ -152,44 +152,44 @@ public class CircleBoundaryTest {
 				true
 		));
 		
-		samples.add(new Triplet<Boundary, Boundary, Boolean>(
+		samples.add(new Triplet<>(
 				new CircleBoundary(new Vector2D(), 100), //this method will be called on the second arg
 				new CircleBoundary(new Vector2D(20, 20), 10),
 				true
 		));
 
-		samples.add(new Triplet<Boundary, Boundary, Boolean>(
+		samples.add(new Triplet<>(
 				new CircleBoundary(new Vector2D(), 100), //this method will be called on the second arg
 				new CircleBoundary(new Vector2D(), 10),
 				true
 		));
 		
-		samples.add(new Triplet<Boundary, Boundary, Boolean>(
+		samples.add(new Triplet<>(
 				new CircleBoundary(new Vector2D(), 0), //this method will be called on the second arg
 				new CircleBoundary(new Vector2D(), 0),
 				true
 		));
 		
-		samples.add(new Triplet<Boundary, Boundary, Boolean>(
+		samples.add(new Triplet<>(
 				new CircleBoundary(new Vector2D(100, 100), 10), //this method will be called on the second arg
 				new CircleBoundary(new Vector2D(), 100),
-				true
-		));
-		
-		samples.add(new Triplet<Boundary, Boundary, Boolean>(
-				new CircleBoundary(new Vector2D(10, 10), 10), //this method will be called on the second arg
-				new CircleBoundary(new Vector2D(22, 22), 10),
 				false
 		));
 		
-		samples.add(new Triplet<Boundary, Boundary, Boolean>(
+		samples.add(new Triplet<>(
+				new CircleBoundary(new Vector2D(10, 10), 10), //this method will be called on the second arg
+				new CircleBoundary(new Vector2D(22, 22), 10),
+				true
+		));
+		
+		samples.add(new Triplet<>(
 				new CircleBoundary(new Vector2D(), 10), //this method will be called on the second arg
 				new CircleBoundary(new Vector2D(100, 100), 10),
 				false
 		));
 		
 		for (CircleBoundaryTest.Triplet<Boundary, Boundary, Boolean> sample : samples) {
-			assertEquals(sample.x.isColliding(sample.y), sample.z);
+			assertEquals("Testing: " + sample.x + " with " + sample.y, sample.z, sample.x.isColliding(sample.y));
 		}
 	}
 }

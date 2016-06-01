@@ -6,6 +6,7 @@
 package com.alcheagle.jgeom2d.boundary;
 
 import com.alcheagle.jgeom2d.Vector2D;
+import java.util.Objects;
 
 /**
  *
@@ -81,4 +82,38 @@ public class CircleBoundary implements Boundary {
 	public void translate(Vector2D offset) {
 		center.sum(offset);
 	}
+
+	@Override
+	public String toString() {
+		return "CircleBoundary{" + center + ", r=" + radius + '}';
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 5;
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final CircleBoundary other = (CircleBoundary) obj;
+		if (Double.doubleToLongBits(this.radius) != Double.doubleToLongBits(other.radius)) {
+			return false;
+		}
+		if (!Objects.equals(this.center, other.center)) {
+			return false;
+		}
+		return true;
+	}
+	
+	
 }
