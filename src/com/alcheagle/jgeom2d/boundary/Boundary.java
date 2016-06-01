@@ -5,8 +5,6 @@
  */
 package com.alcheagle.jgeom2d.boundary;
 
-import com.alcheagle.jgeom2d.boundary.TriangleBoundary;
-import com.alcheagle.jgeom2d.Vector2D;
 import com.alcheagle.jgeom2d.Vector2D;
 
 /**
