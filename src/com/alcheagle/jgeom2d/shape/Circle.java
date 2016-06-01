@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.alcheagle.jgeom2d.boundary;
+package com.alcheagle.jgeom2d.shape;
 
 import com.alcheagle.jgeom2d.Vector2D;
 import java.util.Objects;
@@ -13,20 +13,20 @@ import java.util.Objects;
  * @author Andrea Gilardoni
  * <a href="mailto:andrea.gilardoni96@gmail.com">andrea.gilardoni96@gmail.com</a>
  */
-public class CircleBoundary implements Boundary {
+public class Circle implements Shape {
 
 	private Vector2D center;
 	private double radius;
 
-	public CircleBoundary() {
+	public Circle() {
 		this(0);
 	}
 
-	public CircleBoundary(double radius) {
+	public Circle(double radius) {
 		this(new Vector2D(), radius);
 	}
 
-	public CircleBoundary(Vector2D position, double radius) {
+	public Circle(Vector2D position, double radius) {
 		this.center = position;
 		this.radius = radius;
 	}
@@ -51,16 +51,16 @@ public class CircleBoundary implements Boundary {
 	}
 
 	@Override
-	public boolean isColliding(Boundary b) {
+	public boolean isColliding(Shape b) {
 		boolean res = false;
 
-		if(b instanceof CircleBoundary) {
-			CircleBoundary cb = (CircleBoundary) b;
+		if(b instanceof Circle) {
+			Circle cb = (Circle) b;
 			Vector2D dcenter = center.sub(cb.center);
 			
 			return dcenter.magnitude() <=  (radius + cb.radius);
 		} else {
-			TriangleBoundary[] t = b.getTriangulation();
+			Triangle[] t = b.getTriangulation();
 
 			for (int i = 0; i < t.length && !res; i++) {
 				Vector2D[] v = t[i].getVertexes();
@@ -74,7 +74,7 @@ public class CircleBoundary implements Boundary {
 	}
 
 	@Override
-	public TriangleBoundary[] getTriangulation() {
+	public Triangle[] getTriangulation() {
 		return null;
 	}
 
@@ -105,7 +105,7 @@ public class CircleBoundary implements Boundary {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		final CircleBoundary other = (CircleBoundary) obj;
+		final Circle other = (Circle) obj;
 		if (Double.doubleToLongBits(this.radius) != Double.doubleToLongBits(other.radius)) {
 			return false;
 		}

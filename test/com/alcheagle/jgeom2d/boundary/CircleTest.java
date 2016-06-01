@@ -16,6 +16,7 @@
  */
 package com.alcheagle.jgeom2d.boundary;
 
+import com.alcheagle.jgeom2d.shape.Circle;
 import com.alcheagle.jgeom2d.Vector2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +26,14 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import com.alcheagle.jgeom2d.shape.Shape;
 
 /**
  *
  * @author Andrea Gilardoni
  * <a href="mailto:andrea.gilardoni96@gmail.com">andrea.gilardoni96@gmail.com</a>
  */
-public class CircleBoundaryTest {
+public class CircleTest {
 
 	public static class Pair<X, Y> {
 
@@ -54,7 +56,7 @@ public class CircleBoundaryTest {
 		}
 	}
 
-	public CircleBoundaryTest() {
+	public CircleTest() {
 
 	}
 
@@ -79,12 +81,12 @@ public class CircleBoundaryTest {
 	 */
 	@Test
 	public void testIsInside() {
-		CircleBoundary sample;
+		Circle sample;
 		List<Pair<Vector2D, Boolean>> samples;
 
 		//creating CircleBoundary sample
 		Vector2D center = new Vector2D(10, 10);
-		sample = new CircleBoundary(center, 10);
+		sample = new Circle(center, 10);
 
 		//creating Vector samples
 		samples = new ArrayList<>();
@@ -143,52 +145,52 @@ public class CircleBoundaryTest {
 	 */
 	@Test
 	public void testCollisions() {
-		List<Triplet<Boundary, Boundary, Boolean>> samples;
+		List<Triplet<Shape, Shape, Boolean>> samples;
 		samples = new ArrayList<>();
 
-		samples.add(new Triplet<Boundary, Boundary, Boolean>(
-				new CircleBoundary(new Vector2D(10, 10), 10), //this method will be called on the second arg
-				new CircleBoundary(new Vector2D(10, 10), 10),
+		samples.add(new Triplet<Shape, Shape, Boolean>(
+				new Circle(new Vector2D(10, 10), 10), //this method will be called on the second arg
+				new Circle(new Vector2D(10, 10), 10),
 				true
 		));
 		
 		samples.add(new Triplet<>(
-				new CircleBoundary(new Vector2D(), 100), //this method will be called on the second arg
-				new CircleBoundary(new Vector2D(20, 20), 10),
+				new Circle(new Vector2D(), 100), //this method will be called on the second arg
+				new Circle(new Vector2D(20, 20), 10),
 				true
 		));
 
 		samples.add(new Triplet<>(
-				new CircleBoundary(new Vector2D(), 100), //this method will be called on the second arg
-				new CircleBoundary(new Vector2D(), 10),
+				new Circle(new Vector2D(), 100), //this method will be called on the second arg
+				new Circle(new Vector2D(), 10),
 				true
 		));
 		
 		samples.add(new Triplet<>(
-				new CircleBoundary(new Vector2D(), 0), //this method will be called on the second arg
-				new CircleBoundary(new Vector2D(), 0),
+				new Circle(new Vector2D(), 0), //this method will be called on the second arg
+				new Circle(new Vector2D(), 0),
 				true
 		));
 		
 		samples.add(new Triplet<>(
-				new CircleBoundary(new Vector2D(100, 100), 10), //this method will be called on the second arg
-				new CircleBoundary(new Vector2D(), 100),
+				new Circle(new Vector2D(100, 100), 10), //this method will be called on the second arg
+				new Circle(new Vector2D(), 100),
 				false
 		));
 		
 		samples.add(new Triplet<>(
-				new CircleBoundary(new Vector2D(10, 10), 10), //this method will be called on the second arg
-				new CircleBoundary(new Vector2D(22, 22), 10),
+				new Circle(new Vector2D(10, 10), 10), //this method will be called on the second arg
+				new Circle(new Vector2D(22, 22), 10),
 				true
 		));
 		
 		samples.add(new Triplet<>(
-				new CircleBoundary(new Vector2D(), 10), //this method will be called on the second arg
-				new CircleBoundary(new Vector2D(100, 100), 10),
+				new Circle(new Vector2D(), 10), //this method will be called on the second arg
+				new Circle(new Vector2D(100, 100), 10),
 				false
 		));
 		
-		for (CircleBoundaryTest.Triplet<Boundary, Boundary, Boolean> sample : samples) {
+		for (CircleTest.Triplet<Shape, Shape, Boolean> sample : samples) {
 			assertEquals("Testing: " + sample.x + " with " + sample.y, sample.z, sample.x.isColliding(sample.y));
 		}
 	}

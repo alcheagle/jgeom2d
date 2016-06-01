@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.alcheagle.jgeom2d.boundary;
+package com.alcheagle.jgeom2d.shape;
 
 import com.alcheagle.jgeom2d.Vector2D;
 import java.util.ArrayList;
@@ -17,12 +17,12 @@ import java.util.List;
  * @author Andrea Gilardoni
  * <a href="mailto:andrea.gilardoni96@gmail.com">andrea.gilardoni96@gmail.com</a>
  */
-public class PolygonBoundary implements Boundary {
+public class Polygon implements Shape {
 
 	private final List<Vector2D> vertexes;
-	private TriangleBoundary[] triangles;
+	private Triangle[] triangles;
 
-	public PolygonBoundary() {
+	public Polygon() {
 		vertexes = new ArrayList<>();
 		triangles = null;
 	}
@@ -40,7 +40,7 @@ public class PolygonBoundary implements Boundary {
 	public boolean isInside(Vector2D point) {
 		boolean res = false;
 
-		TriangleBoundary[] t = getTriangulation();
+		Triangle[] t = getTriangulation();
 
 		for (int i = 0; i < t.length && !res; i++) {
 			t[i].isInside(point);
@@ -50,9 +50,9 @@ public class PolygonBoundary implements Boundary {
 	}
 
 	@Override
-	public boolean isColliding(Boundary b) {
+	public boolean isColliding(Shape b) {
 		boolean res = false;
-		TriangleBoundary[] t = getTriangulation();
+		Triangle[] t = getTriangulation();
 
 		for (int i = 0; i < t.length && !res; i++) {
 			res = t[i].isColliding(b);
@@ -62,7 +62,7 @@ public class PolygonBoundary implements Boundary {
 	}
 	
 	@Override
-	public TriangleBoundary[] getTriangulation() {
+	public Triangle[] getTriangulation() {
 		if (triangles == null) {
 			triangles = triangulate();
 		}
@@ -70,7 +70,7 @@ public class PolygonBoundary implements Boundary {
 		return triangles;
 	}
 
-	protected synchronized TriangleBoundary[] triangulate() {
+	protected synchronized Triangle[] triangulate() {
 		throw new UnsupportedOperationException("Triangulation Algorithm not yet implemented");
 	}
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.alcheagle.jgeom2d.boundary;
+package com.alcheagle.jgeom2d.shape;
 
 import com.alcheagle.jgeom2d.Vector2D;
 
@@ -12,9 +12,9 @@ import com.alcheagle.jgeom2d.Vector2D;
  * @author Andrea Gilardoni
  * <a href="mailto:andrea.gilardoni96@gmail.com">andrea.gilardoni96@gmail.com</a>
  */
-public class RectangleBoundary extends PolygonBoundary {
+public class Rectangle extends Polygon {
 
-	public RectangleBoundary(Vector2D position, Vector2D lengths) {
+	public Rectangle(Vector2D position, Vector2D lengths) {
 		Vector2D oppvert = position.sum(lengths);
 
 		super.addVertexes(
@@ -24,7 +24,7 @@ public class RectangleBoundary extends PolygonBoundary {
 				oppvert);
 	}
 
-	private RectangleBoundary(Vector2D p1, Vector2D p2, Vector2D p3, Vector2D p4) {
+	private Rectangle(Vector2D p1, Vector2D p2, Vector2D p3, Vector2D p4) {
 		super();//the user could generate a shape that is not a rectangle
 		super.addVertexes(p1, p2, p3, p4);
 	}
@@ -35,15 +35,15 @@ public class RectangleBoundary extends PolygonBoundary {
 	}
 
 	@Override
-	protected TriangleBoundary[] triangulate() {
-		TriangleBoundary[] triangulation = new TriangleBoundary[2];
+	protected Triangle[] triangulate() {
+		Triangle[] triangulation = new Triangle[2];
 
-		triangulation[0] = new TriangleBoundary();
+		triangulation[0] = new Triangle();
 		triangulation[0].setVertex1(getVertex(0));
 		triangulation[0].setVertex2(getVertex(1));
 		triangulation[0].setVertex3(getVertex(2));
 		
-		triangulation[1] = new TriangleBoundary();
+		triangulation[1] = new Triangle();
 		triangulation[1].setVertex1(getVertex(0));
 		triangulation[1].setVertex2(getVertex(2));
 		triangulation[1].setVertex3(getVertex(3));

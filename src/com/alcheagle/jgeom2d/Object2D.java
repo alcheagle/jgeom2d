@@ -5,7 +5,7 @@
  */
 package com.alcheagle.jgeom2d;
 
-import com.alcheagle.jgeom2d.boundary.Boundary;
+import com.alcheagle.jgeom2d.shape.Shape;
 
 /**
  *
@@ -15,7 +15,7 @@ import com.alcheagle.jgeom2d.boundary.Boundary;
 public abstract class Object2D {
 	protected Vector2D position;
 	protected double mass;
-	protected Boundary boundary;
+	protected Shape boundary;
 	
 	public final static double DEFAULT_MASS = 0.0;
 	
@@ -24,7 +24,7 @@ public abstract class Object2D {
 		mass = DEFAULT_MASS;
 	}
 	
-	public Object2D(Boundary boundary) {
+	public Object2D(Shape boundary) {
 		this.boundary = boundary;
 	}
 
@@ -44,11 +44,11 @@ public abstract class Object2D {
 		this.mass = mass;
 	}
 
-	public Boundary getBoundary() {
+	public Shape getBoundary() {
 		return boundary;
 	}
 
-	public void setBoundary(Boundary boundary) {
+	public void setBoundary(Shape boundary) {
 		this.boundary = boundary;
 	}
 	

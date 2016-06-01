@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.alcheagle.jgeom2d.boundary;
+package com.alcheagle.jgeom2d.shape;
 
 import com.alcheagle.jgeom2d.Vector2D;
 
@@ -12,12 +12,12 @@ import com.alcheagle.jgeom2d.Vector2D;
  * @author Andrea Gilardoni
  * <a href="mailto:andrea.gilardoni96@gmail.com">andrea.gilardoni96@gmail.com</a>
  */
-public class TriangleBoundary implements Boundary {
+public class Triangle implements Shape {
 
 	private final Vector2D[] vertexes;
 	public static final int SIDES_NUMBER = 3;
 
-	public TriangleBoundary() {
+	public Triangle() {
 		vertexes = new Vector2D[SIDES_NUMBER];
 	}
 
@@ -61,16 +61,16 @@ public class TriangleBoundary implements Boundary {
 	}
 
 	@Override
-	public boolean isColliding(Boundary b) {
+	public boolean isColliding(Shape b) {
 		boolean res = false;
 
-		if (b instanceof CircleBoundary) {
-			CircleBoundary cb = (CircleBoundary) b;
+		if (b instanceof Circle) {
+			Circle cb = (Circle) b;
 			res = cb.isColliding(this);
 		} else {
 			//FIXME check if the actual triangle is inside the other triangles
 			
-			TriangleBoundary[] t = b.getTriangulation();
+			Triangle[] t = b.getTriangulation();
 			
 			for (int i = 0; i < t.length && !res; i++) {
 				Vector2D[] v = t[i].getVertexes();
@@ -84,8 +84,8 @@ public class TriangleBoundary implements Boundary {
 	}
 
 	@Override
-	public TriangleBoundary[] getTriangulation() {
-		TriangleBoundary[] t = new TriangleBoundary[1];
+	public Triangle[] getTriangulation() {
+		Triangle[] t = new Triangle[1];
 		t[0] = this;
 		return t;
 	}
