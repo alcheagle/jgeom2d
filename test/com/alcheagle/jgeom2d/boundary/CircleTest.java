@@ -194,4 +194,63 @@ public class CircleTest {
 			assertEquals("Testing: " + sample.x + " with " + sample.y, sample.z, sample.x.isColliding(sample.y));
 		}
 	}
+	
+	@Test
+	public void testTranslations() {
+		List<Triplet<Shape, Shape, Boolean>> samples;
+		samples = new ArrayList<>();
+
+		samples.add(new Triplet<Shape, Shape, Boolean>(
+				new Circle(new Vector2D(10, 10), 10), //this method will be called on the second arg
+				new Circle(new Vector2D(10, 10), 10),
+				true
+		));
+		
+		samples.add(new Triplet<>(
+				new Circle(new Vector2D(), 100), //this method will be called on the second arg
+				new Circle(new Vector2D(20, 20), 10),
+				true
+		));
+
+		samples.add(new Triplet<>(
+				new Circle(new Vector2D(), 100), //this method will be called on the second arg
+				new Circle(new Vector2D(), 10),
+				true
+		));
+		
+		samples.add(new Triplet<>(
+				new Circle(new Vector2D(), 0), //this method will be called on the second arg
+				new Circle(new Vector2D(), 0),
+				true
+		));
+		
+		samples.add(new Triplet<>(
+				new Circle(new Vector2D(100, 100), 10), //this method will be called on the second arg
+				new Circle(new Vector2D(), 100),
+				false
+		));
+		
+		samples.add(new Triplet<>(
+				new Circle(new Vector2D(10, 10), 10), //this method will be called on the second arg
+				new Circle(new Vector2D(22, 22), 10),
+				true
+		));
+		
+		samples.add(new Triplet<>(
+				new Circle(new Vector2D(), 10), //this method will be called on the second arg
+				new Circle(new Vector2D(100, 100), 10),
+				false
+		));
+		
+		for (Triplet<Shape, Shape, Boolean> sample : samples) {
+			Vector2D translation = new Vector2D(Math.random()*10000d, Math.random()*10000d);
+			
+			sample.x.translate(translation);
+			sample.y.translate(translation);
+		}
+		
+		for (CircleTest.Triplet<Shape, Shape, Boolean> sample : samples) {
+			assertEquals("Testing: " + sample.x + " with " + sample.y, sample.z, sample.x.isColliding(sample.y));
+		}
+	}
 }
